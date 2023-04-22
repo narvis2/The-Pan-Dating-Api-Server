@@ -18,7 +18,7 @@ class Member(
     var password: String?,
     @Column(nullable = false, length = 20, unique = true)
     var nickname: String,
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 10)
     var username: String,
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

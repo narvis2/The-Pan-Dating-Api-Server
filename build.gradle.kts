@@ -39,6 +39,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("org.mindrot:jbcrypt:0.4")
     
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.9.8")
     
