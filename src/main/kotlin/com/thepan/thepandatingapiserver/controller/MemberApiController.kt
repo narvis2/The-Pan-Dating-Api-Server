@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/member")
 class MemberApiController @Autowired constructor(
     private val signUpService: SignUpService
 ) {
     
-    @PostMapping("/member/signup")
+    @PostMapping("/signup")
     fun signUp(
         @Valid
         @RequestBody
