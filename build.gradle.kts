@@ -39,6 +39,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    // JWT 스펙을 직접 구현하지 않고 잘 짜여진 라이브러리 사용
+    implementation("com.auth0:java-jwt:4.3.0")
+    implementation("org.mindrot:jbcrypt:0.4")
     
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.9.8")
     

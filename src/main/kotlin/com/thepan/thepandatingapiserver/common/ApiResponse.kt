@@ -11,10 +11,10 @@ data class ApiResponse<T>(
 ) {
     companion object {
         // ✅ 응답은 성공했는데 반환할 데이터가 없는 경우
-        fun <T> success(): ApiResponse<T> = ApiResponse(true, resultMsg = "응답 성공", code = 0)
+        fun <T> success(): ApiResponse<T> = ApiResponse(true, resultMsg = "응답 성공", code = 200)
         
         // ✅ 응답 성공, 데이터 포함
-        fun <T> success(data: T): ApiResponse<T> = ApiResponse(true, data, resultMsg = "응답 성공", code = 0)
+        fun <T> success(data: T): ApiResponse<T> = ApiResponse(true, data, resultMsg = "응답 성공", code = 200)
         
         // ✅ 응답 실패
         fun <T> failure(code: Int, resultMsg: String? = null): ApiResponse<T> =
