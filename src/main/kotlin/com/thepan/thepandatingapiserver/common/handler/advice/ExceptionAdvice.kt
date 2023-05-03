@@ -1,10 +1,7 @@
 package com.thepan.thepandatingapiserver.common.handler.advice
 
 import com.thepan.thepandatingapiserver.common.ApiResponse
-import com.thepan.thepandatingapiserver.common.handler.exception.LoginFailureException
-import com.thepan.thepandatingapiserver.common.handler.exception.MemberNotFoundException
-import com.thepan.thepandatingapiserver.common.handler.exception.UserEmailAlreadyExistsException
-import com.thepan.thepandatingapiserver.common.handler.exception.UserNicknameAlreadyExistsException
+import com.thepan.thepandatingapiserver.common.handler.exception.*
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -66,5 +63,12 @@ class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     fun memberNotFoundException(e: MemberNotFoundException): ApiResponse<Unit> {
         return ApiResponse.failure(-1007, "요청한 회원을 찾을 수 없습니다.")
+    }
+    
+    // ✅ Token 재발행 GrantType 이 없을 경우, 400 응답
+    @ExceptionHandler(RefreshTokenNotGrantTypeException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun refreshTokenNotGrantTypeException(e: RefreshTokenNotGrantTypeException): ApiResponse<Unit> {
+        return ApiResponse.failure(-1008, "grant_type 이 없습니다.")
     }
 }
