@@ -1,3 +1,3 @@
 package com.thepan.thepandatingapiserver.common.handler.exception
 
-class MemberNotFoundException : RuntimeException()
+class RefreshTokenNotGrantTypeException : RuntimeException()

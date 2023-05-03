@@ -2,6 +2,7 @@ package com.thepan.thepandatingapiserver.domain.auth.utils
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.interfaces.DecodedJWT
 import java.util.*
 
 /**
@@ -29,6 +30,7 @@ object JWTUtils {
     private const val REFRESH_SECRET = "your-refresh-secret"
     private val refreshAlgorithm: Algorithm = Algorithm.HMAC256(REFRESH_SECRET)
     
+    // ✅ JWT Token 생성
     fun createToken(email: String): String = JWT.create()
         .withIssuer(ISSUER)
         .withSubject(SUBJECT)
@@ -37,6 +39,7 @@ object JWTUtils {
         .withClaim(JWTClaims.EMAIL, email)
         .sign(algorithm)
     
+    // ✅ JWT Refresh Token 생성
     fun createRefreshToken(email: String): String = JWT.create()
         .withIssuer(ISSUER)
         .withSubject(SUBJECT)
@@ -44,6 +47,19 @@ object JWTUtils {
         .withExpiresAt(Date(Date().time + REFRESH_EXPIRE_TIME))
         .withClaim(JWTClaims.EMAIL, email)
         .sign(refreshAlgorithm)
+    
+    /**
+     * ✅ JwT Token 유효성 검증
+     *
+     * verify 👉 토큰의 유효성을 검증하고 Decoded 된 JWT 객체를 반환, 만일 Token 이 유효하지 않다면 Exception 을 발생시킴
+     */
+    fun verifyToken(token: String): DecodedJWT = JWT.require(algorithm).withIssuer(ISSUER).build().verify(token)
+    
+    // ✅ JWT Refresh Token 유효성 검증
+    fun verifyRefreshToken(refreshToken: String): DecodedJWT = JWT.require(refreshAlgorithm).withIssuer(ISSUER).build().verify(refreshToken)
+    
+    // ✅ JWT 에서 Member Entity 의 unique 값인 Email 추출
+    fun extractEmail(jwt: DecodedJWT): String = jwt.getClaim(JWTClaims.EMAIL).asString()
     
     object JWTClaims {
         const val EMAIL = "email"
